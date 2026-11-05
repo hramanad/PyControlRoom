@@ -1,5 +1,17 @@
 10/30
+HR -
 DB Schema change in 05 test
   transaction progress, tags
 creation of exceptions py file for common usage
 NM - lsv p1 test
+
+11/5 
+HR -
+Dynamic Date Execution (Today - 1): 
+Updated the main orchestrator (ser_loader.py) to automatically target the previous day ($T-1$) rather than requiring an explicit hardcoded date.SQL Injection & Optimization 
+Fix: Replaced literal string replacements ({TARGET_DATE}) in the WVR database queries with secure, parameterized ODBC placeholders (?), improving database execution plan caching.
+Fall Months Deferred Logic: Implemented the Fall months segregation and reversal logic (active between July 2 and September 1), 
+which routes Fall student records to a dedicated deferred network folder with inverted sign reversal entries (2J0013) while keeping non-Fall data for direct Gateway upload.
+Outlook COM Integration: Configured local Microsoft Outlook desktop client automation (win32com.client) to handle all three required alert paths (Business Review, System/Technical Exceptions, 
+and Daily Summary HTML reporting).Robust Error Handling: Added fail-safe logging, active stage progress tracking (trn_progress), and termination/interruption handlers to ensure alert emails 
+and database audit states are captured if the process crashes or aborts.
