@@ -1,9 +1,12 @@
-10/30
-HR -
-DB Schema change in 05 test
-  transaction progress, tags
-creation of exceptions py file for common usage
-NM - lsv p1 test
+11/9 - 
+HR - 
+Today's updates resolved critical reconciliation and submission errors in ser_loader.py to achieve full operational parity with the legacy Blue Prism implementation. First, 
+the WVR database verification logic in Steps 3 and 4 was corrected by calculating the net deducted total (Debits - Credits specifically for lines where Len(Orgn) > 2) 
+rather than passing the raw ePrint gross debit amount, resolving the reconciliation mismatch against ODSPROD.
+An UnboundLocalError in Step 3 was eliminated by removing a premature return statement, ensuring the processed workbook is properly generated, formatted, and archived to the departmental share before the function exits.
+Finally, the SOAP payload generator in Step 7 was restructured to strictly match the Banner Gateway ASMX schema by enclosing all transaction rows within a root <records> wrapper inside the CDATA block, 
+qualifying parameter elements with the expected tex: namespace (xmlDocument, mode, sharedSecret, and SyncFlag), and formatting monetary amounts to remove redundant trailing zeroes on whole-dollar values. 
+Together, these enhancements allowed the pipeline to complete an end-to-end run, verify sub-batch balances, and receive a successful "Good file" acceptance response from GatewayFIN.
 
 11/5 
 HR -
@@ -15,3 +18,10 @@ which routes Fall student records to a dedicated deferred network folder with in
 Outlook COM Integration: Configured local Microsoft Outlook desktop client automation (win32com.client) to handle all three required alert paths (Business Review, System/Technical Exceptions, 
 and Daily Summary HTML reporting).Robust Error Handling: Added fail-safe logging, active stage progress tracking (trn_progress), and termination/interruption handlers to ensure alert emails 
 and database audit states are captured if the process crashes or aborts.
+
+10/30
+HR -
+DB Schema change in 05 test
+  transaction progress, tags
+creation of exceptions py file for common usage
+NM - lsv p1 test
